@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev-mode": "nodemon ./server.js"
+    "start:dev-mode": "nodemon ./src/server.js"
   },
   "author": "Jaskaran Bhambra <jsinghbhambra@gmail.com>",
   "license": "ISC",
