@@ -1,0 +1,19 @@
+{
+  "name": "jb-messages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev-mode": "nodemon ./server.js"
+  },
+  "author": "Jaskaran Bhambra <jsinghbhambra@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.2"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.12"
+  }
+}
