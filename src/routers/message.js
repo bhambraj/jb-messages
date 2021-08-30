@@ -12,7 +12,7 @@ const {
 router.get('/', getAllMessages);
 router.post('/', addMessage);
 router.get('/:id', getMessage,  (req, res) => {
-    res.status('200').json(res.message)
+    res.status(200).json(res.message)
 });
 router.patch('/:id', getMessage, updateMessage);
 router.delete('/:id', getMessage, deleteMessage);
