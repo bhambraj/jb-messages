@@ -2,6 +2,13 @@ const MessageModel = require('../models/message');
 const {ObjectId} = require('mongoose').Types;
 
 module.exports = {
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res
+     * 
+     * Returns an array of all the messages 
+     */
     async getAllMessages(req, res) {
         try {
             const messages = await MessageModel.find();
@@ -10,6 +17,13 @@ module.exports = {
             res.status(500).json({ message: err.message })
         }
     },
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res
+     * 
+     * returns the new message added
+     */
     async addMessage(req, res) {
         const message = new MessageModel({
             name: req.body.name
@@ -23,6 +37,13 @@ module.exports = {
             });
         }
     },
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res
+     * 
+     * Updates the message based on ID set in res from the getMessage middleware
+     */
     async updateMessage(req, res) {
         if (req.body.name) {
             res.message.name = req.body.name
@@ -36,6 +57,13 @@ module.exports = {
             });
         }
     },
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res
+     * 
+     * Deletes the message based on ID set in res from the getMessage middleware
+     */
     async deleteMessage(req, res) {
         try {
             await res.message.remove();
@@ -46,6 +74,15 @@ module.exports = {
             });
         }
     },
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     * 
+     * This middleware loads message by ID, appends the loaded record in response
+     * to pass it on the next middleware
+     */
     async getMessage(req, res, next) {
         let message;
         try {

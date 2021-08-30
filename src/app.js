@@ -17,7 +17,7 @@ app.use(express.json());
 // Routes
 app.use('/messages', messagesRouter);
 app.get('/', (req, res) => {
-    res.send('Home Route');
+    res.json([]);
 });
 
 app.listen(process.env.APP_PORT || 3000, () => {

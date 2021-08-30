@@ -1,3 +1,9 @@
+/**
+ * Exports the router for messages
+ * 
+ * All the routes following '/messages' in the url will go via this router∑
+ */
+
 const express = require('express');
 const router = express.Router();
 
