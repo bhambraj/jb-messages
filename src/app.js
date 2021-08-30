@@ -1,20 +1,25 @@
 require('dotenv').config();
 
 const express = require('express');
-const MessageRouter = require('./routers/message');
+const cors = require('cors');
+
+const messagesRouter = require('./routers/message');
 const dbService = require('./services/db.js');
+const logger = require('./services/logger');
 
-dbService.setupConnection()
+dbService.setupConnection() // Setup Connection to DB
 const app = express();
-app.use(express.json())
 
-// Any requests with url `/messages` will go via the MessageRouters
-app.use('/messages', MessageRouter);
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-app.get('/', (req, res) =>{
+// Routes
+app.use('/messages', messagesRouter);
+app.get('/', (req, res) => {
     res.send('Home Route');
 });
 
 app.listen(process.env.APP_PORT || 3000, () => {
-    console.log('Server Started');
+    logger.info('Server Started');
 });

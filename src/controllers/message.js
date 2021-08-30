@@ -39,7 +39,7 @@ module.exports = {
     async deleteMessage(req, res) {
         try {
             await res.message.remove();
-            res.json('Message deleted');
+            res.send('Message deleted');
         } catch(err) {
             res.status(500).json({
                 message: err.message
@@ -55,10 +55,10 @@ module.exports = {
             }
             message = await MessageModel.findById(req.params.id);
             if (message == null) {
-                return res.status(404).json({ message: 'Message not found'});
+                return res.status(404).json({ error: 'Message not found'});
             }
         } catch (err) {
-            return res.status(500).json({ message: err.message });
+            return res.status(500).json({ error: err.message });
         }
         res.message = message;
         next();
