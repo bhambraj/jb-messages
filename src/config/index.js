@@ -13,7 +13,7 @@ module.exports = {
                 description: 'A simple Express Library API'
             },
             servers: [{
-                url: 'http://localhost:3000'
+                url: process.env.SERVER_URL || 'http://localhost:3000'
             }]
         }
     }

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node .src/start.js",
     "start:dev-mode": "nodemon ./src/start.js",
     "test": "mocha --file test/api/*.js --exit"
   },

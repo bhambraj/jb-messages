@@ -40,6 +40,7 @@ Included API tests (mocha, supertest)
 ```bash
     APP_PORT=<application port> (default:3000)
     LOG_LEVEL=<application log level> (default: info)
+    SERVER_URL=<server url> (default: http:localhost:3000)
 
     #db
     DB_USER:<db user>
