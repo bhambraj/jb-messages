@@ -11,10 +11,10 @@ describe('Test Message API', () => {
     before(async function setup() {
         this.timeout(6000);
         await dbService.setupConnection(); // before running all tests
-        await deleteAllMessages();
+        await deleteAllMessages(); // Delete all messages from DB before running
     });
 
-    it('should not save message with empty body', (done) => {
+    it('should not save message without value', (done) => {
         testApp
             .post(messagesApiRoute)
             .send()
@@ -23,17 +23,17 @@ describe('Test Message API', () => {
     })
 
     let savedMessageId;
-    it('should save new message with name passed in the body', (done) => {
-        const nameToBeSaved = 'Dummy Name';
+    it('should create new message with value', (done) => {
+        const valueToBeSaved = 'Dummy Value';
          testApp
             .post(messagesApiRoute)
             .send({
-                name: nameToBeSaved
+                value: valueToBeSaved
             })
             .expect(201)
             .expect((res) => {
-                assert(!!res.body._id, 'Saved Message was not returned to the response');
-                assert.strictEqual(res.body.name, nameToBeSaved, `Expected ${nameToBeSaved} but got ${res.body.name}`);
+                assert(!!res.body._id, 'Some error occured while creating the message');
+                assert.strictEqual(res.body.value, valueToBeSaved, `Expected ${valueToBeSaved} but got ${res.body.value}`);
                 savedMessageId = res.body._id;
             })
             .end(done);
@@ -57,16 +57,16 @@ describe('Test Message API', () => {
             .end(done);
     });
 
-    const updatedName = 'Monak';
-    it('should update the message with valid message ID', (done) => {
+    const updatedValue = 'Monak';
+    it('should update the message with a valid message ID', (done) => {
         testApp
             .patch(`${messagesApiRoute}/${savedMessageId}`)
             .send({
-                name: updatedName
+                value: updatedValue
             })
             .expect(200)
             .expect((res) => {
-                assert.strictEqual(res.body.name, updatedName, `Unable to update the message. Expected name ${updatedName} but got ${res.body.name}`)
+                assert.strictEqual(res.body.value, updatedValue, `Unable to update the message. Expected value ${updatedValue} but got ${res.body.value}`)
             })
             .end(done);
     });
@@ -75,11 +75,35 @@ describe('Test Message API', () => {
         testApp
             .patch(`${messagesApiRoute}/5876`)
             .send({
-                name: `${updatedName} UPDATED`
+                value: `${updatedValue} UPDATED`
             })
             .expect(404)
             .end(done);
     });
+
+    it('should return isPalindrome:false for a message that is not a palindrome', (done) => {
+        testApp
+            .get(`${messagesApiRoute}/${savedMessageId}`)
+            .expect(200)
+            .expect((res) => {
+                assert.strictEqual(res.body.isPalindrome, false, 'Expected isPalindrome: false but got true')
+            })
+            .end(done);
+    })
+
+    it('Should return isPalindrome:true for a message that is a palindrome', (done) => {
+        const palindromeValue = 'r a c e c a r';
+        testApp
+            .patch(`${messagesApiRoute}/${savedMessageId}`)
+            .send({
+                value: palindromeValue
+            })
+            .expect(200)
+            .expect((res) => {
+                assert.strictEqual(res.body.isPalindrome, true, 'Expected isPalindrome: true but got false')
+            })
+            .end(done);
+    })
 
     it('should delete the message with valid message ID', (done) => {
         testApp

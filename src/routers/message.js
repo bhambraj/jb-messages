@@ -22,16 +22,16 @@ const {
  *      Message:
  *          type: object
  *          required:
- *              - name
+ *              - value
  *          properties:
- *              name: 
+ *              value: 
  *                  type: string
  *                  description: The message value
  *              isPalindrome:
  *                  type: boolean
  *                  description: Boolean describing if message is a palindrome or not
  *          example:
- *              name: 'Roy Jones'
+ *              value: 'Roy Jones'
  *              isPalindrome: false,
  */
 

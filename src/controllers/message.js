@@ -26,10 +26,13 @@ module.exports = {
      * 
      * returns the new message added
      */
-    async addMessage(req, res) {        
-        if (req.body.name) {
+    async addMessage(req, res) {
+        if (req.body.value) {
             try {
-                const newMessage = await messageService.create({name: req.body.name})
+                const newMessage = await messageService.create({
+                    value: req.body.value,
+                    isPalindrome: messageService.isPalindrome(req.body.value)
+                });
                 res.status(201).json(newMessage); 
              } catch (err) {
                  res.status(500).json({
@@ -50,8 +53,9 @@ module.exports = {
      * Updates the message based on ID set in res from the getMessage middleware
      */
     async updateMessage(req, res) {
-        if (req.body.name) {
-            res.message.name = req.body.name
+        if (req.body.value) {
+            res.message.value = req.body.value
+            res.message.isPalindrome = messageService.isPalindrome(req.body.value);
             try {
                 const updatedMessage = await messageService.save(res.message);
                 res.json(updatedMessage);
