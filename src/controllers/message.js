@@ -1,6 +1,8 @@
 const MessageModel = require('../models/message');
 const {ObjectId} = require('mongoose').Types;
 
+const messageService = require('../services/message.js');
+
 module.exports = {
     /**
      * 
@@ -11,7 +13,7 @@ module.exports = {
      */
     async getAllMessages(req, res) {
         try {
-            const messages = await MessageModel.find();
+            const messages = await messageService.listAll();
             res.json(messages);
         } catch (err) {
             res.status(500).json({ message: err.message })
@@ -25,11 +27,8 @@ module.exports = {
      * returns the new message added
      */
     async addMessage(req, res) {
-        const message = new MessageModel({
-            name: req.body.name
-        });
         try {
-           const newMessage = await message.save();
+           const newMessage = await messageService.create({name: req.body.name})
            res.status(201).json(newMessage); 
         } catch (err) {
             res.status(500).json({
@@ -49,7 +48,7 @@ module.exports = {
             res.message.name = req.body.name
         }
         try {
-            const updatedMessage = await res.message.save();
+            const updatedMessage = await messageService.save(res.message);
             res.json(updatedMessage);
         } catch(err) {
             res.status(500).json({
@@ -66,7 +65,7 @@ module.exports = {
      */
     async deleteMessage(req, res) {
         try {
-            await res.message.remove();
+            await messageService.remove(res.message);
             res.send('Message deleted');
         } catch(err) {
             res.status(500).json({
@@ -90,7 +89,7 @@ module.exports = {
             if (!idIsValid) {
                 return res.status(404).json({ message: 'Message ID is not valid'});
             }
-            message = await MessageModel.findById(req.params.id);
+            message = await messageService.loadById(req.params.id);
             if (message == null) {
                 return res.status(404).json({ error: 'Message not found'});
             }
