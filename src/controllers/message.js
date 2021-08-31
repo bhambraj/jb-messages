@@ -7,7 +7,7 @@ module.exports = {
      * @param {*} req 
      * @param {*} res
      * 
-     * Returns an array of all the messages 
+     * returns list of all messages in the response
      */
     async getAllMessages(req, res) {
         try {
@@ -32,7 +32,7 @@ module.exports = {
            const newMessage = await message.save();
            res.status(201).json(newMessage); 
         } catch (err) {
-            res.status(400).json({
+            res.status(500).json({
                 message: err.message
             });
         }
@@ -52,7 +52,7 @@ module.exports = {
             const updatedMessage = await res.message.save();
             res.json(updatedMessage);
         } catch(err) {
-            res.status(400).json({
+            res.status(500).json({
                 message: err.message
             });
         }

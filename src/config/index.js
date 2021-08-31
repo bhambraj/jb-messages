@@ -1,7 +1,9 @@
+const path = require('path');
+
 module.exports = {
     swaggerOptions : {
         apis: [
-            '../routers/*.js'
+            `${path.resolve(__dirname, '../routers')}/*.js`
         ],
         definition: {
             openapi: '3.0.0',
