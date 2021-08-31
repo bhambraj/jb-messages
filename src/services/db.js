@@ -10,6 +10,7 @@ module.exports = {
             dbConn.on('error', (error) => logger.error(`DB Connection Error: ${error}`));
             dbConn.once('open', () => logger.info('Connected to the Database successfully'));
         } catch(err) {
+            logger.error('Error occured while connecting to DB: ', err);
             return err
         }
     }

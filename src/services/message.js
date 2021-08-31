@@ -17,4 +17,7 @@ module.exports = {
     async remove(message) {
         return message.remove();
     },
+    async removeAll() {
+        await MessageModel.deleteMany({});
+    }
 }

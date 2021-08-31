@@ -4,16 +4,13 @@ const express = require('express');
 const cors = require('cors');
 
 const messagesRouter = require('./routers/message');
-const dbService = require('./services/db.js');
-const logger = require('./services/logger');
-const {swaggerOptions} = require('./config')
 
+const {swaggerOptions} = require('./config')
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 
 const swaggerSpecs = swaggerJsDoc(swaggerOptions);
 
-dbService.setupConnection() // Setup Connection to DB
 const app = express();
 
 // Middleware
@@ -24,9 +21,7 @@ app.use(express.json());
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs));
 app.use('/messages', messagesRouter);
 app.get('/', (req, res) => {
-    res.json([]);
+    res.send('Please use the routes described in the API Docs');
 });
 
-app.listen(process.env.APP_PORT || 3000, () => {
-    logger.info('Server Started');
-});
+module.exports.app = app;

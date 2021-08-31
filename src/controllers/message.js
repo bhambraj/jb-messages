@@ -14,9 +14,9 @@ module.exports = {
     async getAllMessages(req, res) {
         try {
             const messages = await messageService.listAll();
-            res.json(messages);
+            return res.status(200).json(messages);
         } catch (err) {
-            res.status(500).json({ message: err.message })
+            return res.status(500).json({ message: err.message })
         }
     },
     /**
@@ -26,13 +26,19 @@ module.exports = {
      * 
      * returns the new message added
      */
-    async addMessage(req, res) {
-        try {
-           const newMessage = await messageService.create({name: req.body.name})
-           res.status(201).json(newMessage); 
-        } catch (err) {
-            res.status(500).json({
-                message: err.message
+    async addMessage(req, res) {        
+        if (req.body.name) {
+            try {
+                const newMessage = await messageService.create({name: req.body.name})
+                res.status(201).json(newMessage); 
+             } catch (err) {
+                 res.status(500).json({
+                     message: err.message
+                 });
+             }
+        } else {
+            res.status(400).json({
+                message: 'Invalid Request'
             });
         }
     },
@@ -46,15 +52,20 @@ module.exports = {
     async updateMessage(req, res) {
         if (req.body.name) {
             res.message.name = req.body.name
-        }
-        try {
-            const updatedMessage = await messageService.save(res.message);
-            res.json(updatedMessage);
-        } catch(err) {
-            res.status(500).json({
-                message: err.message
+            try {
+                const updatedMessage = await messageService.save(res.message);
+                res.json(updatedMessage);
+            } catch(err) {
+                res.status(500).json({
+                    message: err.message
+                });
+            }
+        } else {
+            res.status(400).json({
+                message: 'Invalid Request'
             });
         }
+        
     },
     /**
      * 
