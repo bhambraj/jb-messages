@@ -1,6 +1,8 @@
 const MessageModel = require('../models/message');
 const {ObjectId} = require('mongoose').Types;
 
+const messageService = require('../services/message.js');
+
 module.exports = {
     /**
      * 
@@ -11,10 +13,10 @@ module.exports = {
      */
     async getAllMessages(req, res) {
         try {
-            const messages = await MessageModel.find();
-            res.json(messages);
+            const messages = await messageService.listAll();
+            return res.status(200).json(messages);
         } catch (err) {
-            res.status(500).json({ message: err.message })
+            return res.status(500).json({ message: err.message })
         }
     },
     /**
@@ -24,16 +26,19 @@ module.exports = {
      * 
      * returns the new message added
      */
-    async addMessage(req, res) {
-        const message = new MessageModel({
-            name: req.body.name
-        });
-        try {
-           const newMessage = await message.save();
-           res.status(201).json(newMessage); 
-        } catch (err) {
-            res.status(500).json({
-                message: err.message
+    async addMessage(req, res) {        
+        if (req.body.name) {
+            try {
+                const newMessage = await messageService.create({name: req.body.name})
+                res.status(201).json(newMessage); 
+             } catch (err) {
+                 res.status(500).json({
+                     message: err.message
+                 });
+             }
+        } else {
+            res.status(400).json({
+                message: 'Invalid Request'
             });
         }
     },
@@ -47,15 +52,20 @@ module.exports = {
     async updateMessage(req, res) {
         if (req.body.name) {
             res.message.name = req.body.name
-        }
-        try {
-            const updatedMessage = await res.message.save();
-            res.json(updatedMessage);
-        } catch(err) {
-            res.status(500).json({
-                message: err.message
+            try {
+                const updatedMessage = await messageService.save(res.message);
+                res.json(updatedMessage);
+            } catch(err) {
+                res.status(500).json({
+                    message: err.message
+                });
+            }
+        } else {
+            res.status(400).json({
+                message: 'Invalid Request'
             });
         }
+        
     },
     /**
      * 
@@ -66,7 +76,7 @@ module.exports = {
      */
     async deleteMessage(req, res) {
         try {
-            await res.message.remove();
+            await messageService.remove(res.message);
             res.send('Message deleted');
         } catch(err) {
             res.status(500).json({
@@ -90,7 +100,7 @@ module.exports = {
             if (!idIsValid) {
                 return res.status(404).json({ message: 'Message ID is not valid'});
             }
-            message = await MessageModel.findById(req.params.id);
+            message = await messageService.loadById(req.params.id);
             if (message == null) {
                 return res.status(404).json({ error: 'Message not found'});
             }

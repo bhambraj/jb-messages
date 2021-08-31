@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev-mode": "nodemon ./src/app.js"
+    "start:dev-mode": "nodemon ./src/start.js",
+    "test": "mocha --file test/api/*.js"
   },
   "author": "Jaskaran Bhambra <jsinghbhambra@gmail.com>",
   "license": "ISC",
@@ -17,7 +18,10 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "assert": "^2.0.0",
     "dotenv": "^10.0.0",
-    "nodemon": "^2.0.12"
+    "mocha": "^9.1.1",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6"
   }
 }

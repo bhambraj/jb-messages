@@ -1,5 +1,7 @@
 .env
 node_modules
 app.log
+notes.md 
+
 # Local API Testing Files
 *.rest 
