@@ -19,5 +19,23 @@ module.exports = {
     },
     async removeAll() {
         await MessageModel.deleteMany({});
+    },
+    /**
+     * 
+     * @param {*} message 
+     * @returns boolean value
+     * 
+     * Half-indexing (len/2) has benefits when processing large strings. 
+     * Reference: https://www.freecodecamp.org/news/two-ways-to-check-for-palindromes-in-javascript-64fea8191fd7/
+     */
+    isPalindrome(message) {
+        const lowerCasedValue = message.toLowerCase();
+        const len = lowerCasedValue.length;
+        for (var i = 0; i < len/2; i++) {
+          if (lowerCasedValue[i] !== lowerCasedValue[len - 1 - i]) {
+              return false;
+          }
+        }
+        return true;
     }
 }

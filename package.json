@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev-mode": "nodemon ./src/start.js",
-    "test": "mocha --file test/api/*.js"
+    "test": "mocha --file test/api/*.js --exit"
   },
   "author": "Jaskaran Bhambra <jsinghbhambra@gmail.com>",
   "license": "ISC",
