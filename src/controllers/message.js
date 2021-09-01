@@ -1,4 +1,3 @@
-const MessageModel = require('../models/message');
 const {ObjectId} = require('mongoose').Types;
 
 const messageService = require('../services/message.js');
@@ -73,7 +72,6 @@ module.exports = {
                 message: 'Invalid Request'
             });
         }
-        
     },
     /**
      * 
@@ -85,7 +83,7 @@ module.exports = {
     async deleteMessage(req, res) {
         try {
             await messageService.remove(res.message);
-            res.send('Message deleted');
+            res.send('Message deleted successfully');
         } catch(err) {
             res.status(500).json({
                 message: err.message

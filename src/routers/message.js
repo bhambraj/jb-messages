@@ -45,19 +45,16 @@ const {
 /**
  * @swagger
  * /messages:
- *      get:
- *          summary: Gets all messages
- *          tags: [Messages]
- *          responses:
- *              200:
- *                  description: Messages found
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: array
- *                              items:
- *                                  $ref: '#/components/schemas/Message'
- * 
+ *  get:
+ *    summary: Gets all messages
+ *    tags: [Messages]
+ *    responses:
+ *      200:
+ *        description: Messages found
+ *        schema:
+ *          type: array
+ *          items:
+ *            $ref: '#/components/schemas/Message'
  */
 router.get('/', getAllMessages);
 
@@ -88,28 +85,25 @@ router.post('/', addMessage);
 
 /**
  * @swagger
- *  /messages/{id}:
- *      get:
- *          summary: Retrieves the message by ID
- *          tags: [Messages]
- *          parameters:
- *              - in: path
- *              - name: id
- *              - schema:
- *                  type: string
- *              - required: true
- *              - description: The message ID
- *          responses:
- *              200:
- *                  description: Message fetched successfully
- *                  content: 
- *                      application/json:
- *                          schema: 
- *                              $ref: '#/components/schemas/Messages'
- *              404:
- *                  description: Message not found
- *              500:
- *                  description: Internal Server Error
+ * /messages/{id}:
+ *  get:
+ *      summary: Retrieves the message by ID
+ *      tags: [Messages]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          type: string
+ *          required: true
+ *          description: The message ID
+ *      responses:
+ *        200:
+ *          description: Message fetched successfully
+ *          schema: 
+ *            $ref: '#/components/schemas/Message'
+ *        404:
+ *          description: Message not found
+ *        500:
+ *          description: Internal Server Error
  *
  */
 router.get('/:id', getMessage,  (req, res) => {
@@ -124,11 +118,11 @@ router.get('/:id', getMessage,  (req, res) => {
  *          tags: [Messages]
  *          parameters:
  *              - in: path
- *              - name: id
- *              - schema:
+ *                name: id
+ *                schema:
  *                  type: string
- *              - required: true
- *              - description: The message ID
+ *                required: true
+ *                description: The message ID
  *          requestBody:
  *              required: true
  *              content:
@@ -147,28 +141,28 @@ router.get('/:id', getMessage,  (req, res) => {
  *                  description: Internal Server Error
  *
  */
+
 router.patch('/:id', getMessage, updateMessage);
 
 /**
  * @swagger
- *      /messages/{id}:
- *          delete:
- *              summary: Delete message by ID
- *              tags: [Messages]
- *              parameters:
- *                  - in: path
- *                  - name: id
- *                  - schema:
- *                      type: string
- *                  - required: true
- *                  - description: The Message ID
- *              responses:
- *                  200:
- *                      description: Message deleted successfully
- *                  404: 
- *                      description: Message not found
- *                  500:
- *                      description: Internal Server Error
+ *  /messages/{id}:
+ *    delete:
+ *      summary: Delete message by ID
+ *      tags: [Messages]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          type: string
+ *          required: true
+ *          description: The message ID
+ *      responses:
+ *        200:
+ *          description: Message deleted successfully
+ *        404: 
+ *          description: Message not found
+ *        500:
+ *          description: Internal Server Error
  */
 router.delete('/:id', getMessage, deleteMessage);
 

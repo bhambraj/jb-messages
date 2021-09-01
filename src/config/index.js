@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    swaggerOptions : {
+    swagger : {
         apis: [
             `${path.resolve(__dirname, '../routers')}/*.js`
         ],

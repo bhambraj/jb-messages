@@ -3,11 +3,11 @@ const cors = require('cors');
 
 const messagesRouter = require('./routers/message');
 
-const {swaggerOptions} = require('./config')
+const {swagger: options} = require('./config')
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 
-const swaggerSpecs = swaggerJsDoc(swaggerOptions);
+const swaggerSpecs = swaggerJsDoc(options);
 
 const app = express();
 
