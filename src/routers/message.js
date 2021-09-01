@@ -26,13 +26,9 @@ const {
  *          properties:
  *              value: 
  *                  type: string
- *                  description: The message value
- *              isPalindrome:
- *                  type: boolean
- *                  description: Boolean describing if message is a palindrome or not
+ *                  description: Message value
  *          example:
- *              value: 'Roy Jones'
- *              isPalindrome: false,
+ *              value: 'Dummy Message'
  */
 
 /**
@@ -48,6 +44,15 @@ const {
  *  get:
  *    summary: Gets all messages
  *    tags: [Messages]
+ *    parameters:
+ *      - in: query
+ *        name: limit
+ *        type: integer
+ *        description: Number of Messages that will be returned for a page
+ *      - in: query
+ *        name: page
+ *        type: integer
+ *        description: page reference
  *    responses:
  *      200:
  *        description: Messages found
@@ -55,6 +60,8 @@ const {
  *          type: array
  *          items:
  *            $ref: '#/components/schemas/Message'
+ *      500:
+ *        description: Internal Server Error
  */
 router.get('/', getAllMessages);
 
@@ -94,7 +101,7 @@ router.post('/', addMessage);
  *          name: id
  *          type: string
  *          required: true
- *          description: The message ID
+ *          description: Message ID
  *      responses:
  *        200:
  *          description: Message fetched successfully
@@ -122,7 +129,7 @@ router.get('/:id', getMessage,  (req, res) => {
  *                schema:
  *                  type: string
  *                required: true
- *                description: The message ID
+ *                description: Message ID
  *          requestBody:
  *              required: true
  *              content:
@@ -130,7 +137,7 @@ router.get('/:id', getMessage,  (req, res) => {
  *                      schema: 
  *                          $ref: '#components/schemas/Message'
  *          responses:
- *              201:
+ *              200:
  *                  description: Message updated successfully
  *                  content:
  *                      application/json:
@@ -155,11 +162,11 @@ router.patch('/:id', getMessage, updateMessage);
  *          name: id
  *          type: string
  *          required: true
- *          description: The message ID
+ *          description: Message ID
  *      responses:
  *        200:
  *          description: Message deleted successfully
- *        404: 
+ *        404:
  *          description: Message not found
  *        500:
  *          description: Internal Server Error
