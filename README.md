@@ -31,6 +31,8 @@ All requests will go via the router to their respective controllers. Controllers
 
 ![Diagram](architecture.svg)
 
+![Diagram2](jb-arch.svg)
+
 ### Local Setup
 
 ---
