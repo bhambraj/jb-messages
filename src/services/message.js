@@ -10,20 +10,20 @@ module.exports = {
             total,
             messages,
             page,
-            limit: messages.length
+            count: messages.length
         };
 
         if (startIdx > 0) {
             result.previous = {
                 page: page - 1,
-                limit: messages.length
+                count: messages.length
             }
         }
 
         if (endIdx < total) {
             result.next = {
                 page: page + 1,
-                limit: messages.length
+                count: messages.length
             }
         }
         return result;
