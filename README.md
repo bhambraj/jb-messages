@@ -51,7 +51,7 @@ Once we have credentials to a DB, enter the following list of commands in order 
 
 ```
 - npm i
-- npm run start:dev-mode
+- npm run start
 ```
 
 #### Run Tests
