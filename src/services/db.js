@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const path = require('path');
 const logger = require('./logger');
 const {
     user, 
     pass,
     host,
     name
-} = require('../config').db;
+} = require(path.resolve(__dirname, '../config')).db;
 
 module.exports = {
     async setupConnection() {
