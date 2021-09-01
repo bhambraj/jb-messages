@@ -1,5 +1,7 @@
 ## Message API
 
+[![Node.js CI](https://github.com/bhambraj/jb-messages/actions/workflows/node.js.yml/badge.svg?branch=develop)](https://github.com/bhambraj/jb-messages/actions/workflows/node.js.yml)
+
 CRUD API that manages message and provides details about those messages, specifically if the messageis a palindrome or not.
 
 Following operations are supported:
