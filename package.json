@@ -4,7 +4,7 @@
   "description": "src/start.js",
   "scripts": {
     "start": "node src/start.js",
-    "start:dev-mode": "nodemon src/start.js",
+    "start:dev-mode": "nodemon -r dotenv/config src/start.js",
     "test": "mocha --file test/api/*.js --exit",
     "prestart": "npm i"
   },
