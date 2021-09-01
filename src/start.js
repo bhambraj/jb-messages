@@ -4,6 +4,6 @@ const dbService = require('./services/db');
 
 dbService.setupConnection() // Setup Connection to DB
 
-app.listen(process.env.APP_PORT || 3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     logger.info('Server Started');
 });
