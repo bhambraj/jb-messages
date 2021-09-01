@@ -1,8 +1,7 @@
 {
   "name": "jb-messages",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "src/start.js",
   "scripts": {
     "start": "node src/start.js",
     "start:dev-mode": "nodemon src/start.js",
