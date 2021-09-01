@@ -1,6 +1,7 @@
 const {ObjectId} = require('mongoose').Types;
 
 const messageService = require('../services/message.js');
+const logger = require('../services/logger.js');
 
 module.exports = {
     /**
@@ -19,6 +20,7 @@ module.exports = {
               messages,
             });
         } catch (err) {
+            logger.error('Error occured while listing: ', err).message;
             return res.status(500).json({ message: err.message })
         }
     },
@@ -38,11 +40,13 @@ module.exports = {
                 });
                 res.status(201).json(newMessage); 
              } catch (err) {
+                logger.error(`Error occured while creating: ${err}`)
                  res.status(500).json({
                      message: err.message
                  });
              }
         } else {
+            logger.error('Value is not being set correctly in the body to create message')
             res.status(400).json({
                 message: 'Invalid Request'
             });
@@ -63,11 +67,13 @@ module.exports = {
                 const updatedMessage = await messageService.save(res.message);
                 res.json(updatedMessage);
             } catch(err) {
+                logger.error(`An error occured while updaing message: ${err}`)
                 res.status(500).json({
                     message: err.message
                 });
             }
         } else {
+            logger.error('Value is not being set correctly in the body to create message')
             res.status(400).json({
                 message: 'Invalid Request'
             });
@@ -82,9 +88,10 @@ module.exports = {
      */
     async deleteMessage(req, res) {
         try {
-            await messageService.remove(res.message);
-            res.send('Message deleted successfully');
+            const removedMessage = await messageService.remove(res.message);
+            res.json(removedMessage);
         } catch(err) {
+            logger.error(`An error occured while deleting message: ${err}`)
             res.status(500).json({
                 message: err.message
             });
@@ -111,6 +118,7 @@ module.exports = {
                 return res.status(404).json({ error: 'Message not found'});
             }
         } catch (err) {
+            logger.error(`An error occured while loading message by ID: ${err}`)
             return res.status(500).json({ error: err.message });
         }
         res.message = message;
