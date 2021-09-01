@@ -29,7 +29,7 @@ Docs for deployed service can be accessed [Here](https://jb-messages.herokuapp.c
 
 All requests will go via the router to their respective controllers. Controllers have their own logic and all the DB operations are executed in entity service.
 
-![Diagram](Architecture.svg)
+![Diagram](architecture.svg)
 
 ### Local Setup
 
