@@ -12,3 +12,4 @@
     - Added README.md
     - Added Swagger Documentation
     - Setup Github Actions CI
+    - Added Backend Pagination

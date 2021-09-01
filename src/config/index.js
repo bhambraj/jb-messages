@@ -16,5 +16,11 @@ module.exports = {
                 url: process.env.SERVER_URL || 'http://localhost:3000'
             }]
         }
-    }
+    },
+    db: {
+        user: process.env.DB_USER ,
+        pass: process.env.DB_PASSWORD,
+        host: process.env.DB_HOST,
+        name: process.env.DB_NAME
+    },
 }

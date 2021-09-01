@@ -1,8 +1,32 @@
 const MessageModel = require('../models/message');
 
 module.exports = {
-    async listAll() {
-        return MessageModel.find();
+    async listAll(limit, page) {
+        const startIdx = (page - 1) * limit;
+        const endIdx = page * limit;
+        const total = await MessageModel.countDocuments({});
+        const messages = await (MessageModel.find({}).skip(endIdx).limit(limit));
+        const result = {
+            total,
+            messages,
+            page,
+            count: messages.length
+        };
+
+        if (startIdx > 0) {
+            result.previous = {
+                page: page - 1,
+                count: messages.length
+            }
+        }
+
+        if (endIdx < total) {
+            result.next = {
+                page: page + 1,
+                count: messages.length
+            }
+        }
+        return result;
     },
     async loadById(id) {
         return MessageModel.findById(id);

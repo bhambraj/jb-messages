@@ -12,9 +12,13 @@ module.exports = {
      * returns list of all messages in the response
      */
     async getAllMessages(req, res) {
+        const { limit = 10, page = 0} = req.query;
         try {
-            const messages = await messageService.listAll();
-            return res.status(200).json(messages);
+            const { messages, ...otherOpts } = await messageService.listAll(parseInt(limit, 10), parseInt(page, 10));
+            return res.json({
+              ...otherOpts,
+              messages,
+            });
         } catch (err) {
             return res.status(500).json({ message: err.message })
         }
