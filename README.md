@@ -74,4 +74,4 @@ npm run test
 
 Setup CI/CD with Gitub Actions and Heroku
 
-On completion of CI tests, master branch from github gets deployed to Heroku
+On completion of CI tests, master branch from github gets built and deployed to Heroku
