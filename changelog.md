@@ -15,3 +15,4 @@
 - Added `Swagger` Documentation
 - Setup `Github Actions` CI and Continuous Deployment on `Heroku`
 - Added Backend Pagination
+- Added test coverage badge in readme for master branch
